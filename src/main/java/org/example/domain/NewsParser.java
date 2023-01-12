@@ -4,6 +4,11 @@ import org.example.data.NewsDataSource;
 import org.example.data.models.Article;
 import org.example.data.models.NewsData;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class NewsParser {
     private NewsData newsData;
     public NewsParser(NewsDataSource newsDataSource){
@@ -13,18 +18,41 @@ public class NewsParser {
         return newsData.totalResults;
     }
 
-    public void printAllArticles(){
-
+    public List<String> printAllArticles(){
+       List<String> titleArticle = new ArrayList<>();
+       for(Article item: newsData.articles){
+           titleArticle.add(item.title);
+       }
+       return titleArticle;
     }
 
-    public void printArticleById(Integer id){
 
+    public List<String> printArticleDescriptionById(Integer id){
+        List<String> descriptionArticle = new ArrayList<>();
+        for(Article item: newsData.articles){
+            descriptionArticle.add(item.description);
+        }
+        return descriptionArticle;
     }
-    public void printArticleDescriptionById(Integer id){
-
+    public List<String> printArticleFullDescriptionById(Integer id){
+        List<String> descriptionArticle = new ArrayList<>();
+        for(Article item: newsData.articles){
+            descriptionArticle.add(item.fullDescription);
+        }
+        return descriptionArticle;
     }
-    public void printArticleFullDescriptionById(Integer id){
 
+    public List<String> searchByKeywords(String key){
+        List<String> listArticle = new ArrayList<>();
+       for(int i = 0; i<newsData.articles.size(); i++){
+           if(newsData.articles.get(i).keywords !=null) {
+               if (newsData.articles.get(i).keywords.contains(key)) {
+                   listArticle.add(newsData.articles.get(i).title);
+               }
+           }
+        }
+       Collections.sort(listArticle, Collections.reverseOrder());
+        return listArticle;
     }
 
     public Integer getTotalWordsCount() {

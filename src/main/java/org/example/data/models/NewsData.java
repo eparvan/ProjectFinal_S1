@@ -13,4 +13,5 @@ public class NewsData {
     public List<Article> articles;
     @SerializedName("nextPage")
     public Integer nextPage;
+
 }

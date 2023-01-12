@@ -26,24 +26,58 @@ public class Main {
             System.out.println("Numarul de articole: " + parser.getNumberOfArticles());
         });
         menu.addMenuItem("Afisarea antetelor articolelor",()->{
-
+            System.out.println("Lista antetelor articolelor: ");
+            for (String item: parser.printAllArticles()) {
+                System.out.println(item);
+            }
         });
         menu.addMenuItem("Afisarea antetelor articolelor dupa ID",()->{
-
+            System.out.print("Introdu identificatorul articolului sau apasa enter:");
+            String articleId = new Scanner(System.in).nextLine();
+            if(Integer.parseInt(articleId) >= 0 && Integer.parseInt(articleId) < parser.printAllArticles().size()){
+                System.out.println("Antetul cu numarul " + articleId + " este:\n" + parser.printAllArticles().get(Integer.parseInt(articleId)));
+            }else{
+                System.out.println("Nu exista astfel de antet!");
+            }
         });
         menu.addMenuItem("Afisarea descrierii articolelor dupa ID",()->{
-
+            System.out.print("Introdu identificatorul articolului sau apasa enter:");
+            String articleId = new Scanner(System.in).nextLine();
+            Integer id = Integer.parseInt(articleId);
+            if(id >= 0 && id < parser.printArticleDescriptionById(id).size()){
+                System.out.println("Descrierea articolului cu numarul " + articleId + " este:\n" + parser.printArticleDescriptionById(id).get(id));
+            }else{
+                System.out.println("Nu exista astfel de articol!");
+            }
         });
         menu.addMenuItem("Afisarea descrierii depline a articolelor dupa ID",()->{
-
+            System.out.print("Introdu identificatorul articolului sau apasa enter:");
+            String articleId = new Scanner(System.in).nextLine();
+            Integer id = Integer.parseInt(articleId);
+            if(id >= 0 && id < parser.printArticleFullDescriptionById(id).size()){
+                System.out.println("Descrierea deplina a articolului cu numarul " + articleId + " este:\n" + parser.printArticleFullDescriptionById(id).get(id));
+            }else{
+                System.out.println("Nu exista astfel de articol!");
+            }
         });
         menu.addMenuItem("Cautare si afisare a articolelor dupa cuvintele cheie",()->{
+            System.out.print("Introdu cuvintul cheie pentru cautare:");
+            String key = new Scanner(System.in).nextLine();
+            if(key.isBlank() || parser.searchByKeywords(key).size()==0){
+                System.out.println("Nu ati introdus nimic.");
+            }
+            else{
+                System.out.println("Lista articolelor ce contin cuvintul: " +key+ " este:\n");
+               for (String item: parser.searchByKeywords(key)) {
+                    System.out.println(item);
+                }
+            }
 
         });
-        menu.addMenuItem("Cautare si afisare a articolelor dupa antet",()->{
+        menu.addMenuItem("Cautare si afisarea articolelor dupa antet",()->{
 
         });
-        menu.addMenuItem("Cautare si afisare a articolelor dupa descriere",()->{
+        menu.addMenuItem("Cautare si afisarea articolelor dupa descriere",()->{
 
         });
         menu.addMenuItem("Cautare si afisare a articolelor dupa autor",()->{
@@ -59,7 +93,6 @@ public class Main {
                 Integer wordsCount = parser.getWordsCountForArticle(Integer.parseInt(articleId));
                 System.out.print("In articolul : " +articleId+ " numarul de cuvinte este: " + wordsCount);
             }
-
         });
         menu.addMenuItem("Afișează numărul de apariții ale unui anumit cuvânt în articol",()->{
 

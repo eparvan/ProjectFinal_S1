@@ -13,4 +13,6 @@ public class Article {
     public String fullDescription;
     @SerializedName("keywords")
     public List<String> keywords;
+    @SerializedName("creator")
+    public List<String> creator;
 }

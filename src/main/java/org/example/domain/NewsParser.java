@@ -82,4 +82,42 @@ public class NewsParser {
             return text.split(" ").length;
         }
     }
+
+
+    public List<Article> searchByTitle(String title) {
+        List<Article> listArticles = new ArrayList<>();
+        for (Article item : newsData.articles) {
+            if (item.title !=null){
+                if(item.title.contains(title)){
+                    listArticles.add(item);
+                }
+            }
+        }
+        return listArticles;
+    }
+
+    public List<Article> searchByDescription(String descriptionSearch) {
+        List<Article> listArticles = new ArrayList<>();
+        for (Article item : newsData.articles) {
+            if (item.description !=null){
+                if(item.title.contains(descriptionSearch)){
+                    listArticles.add(item);
+                }
+            }
+        }
+        return listArticles;
+    }
+
+    public List<Article> searchByCreator(String creatorSearch) {
+        List<Article> listArticles = new ArrayList<>();
+        for (Article item : newsData.articles) {
+            if (item.creator !=null){
+                if(item.creator.contains(creatorSearch)){
+                    listArticles.add(item);
+                }
+            }
+        }
+        return listArticles;
+
+    }
 }

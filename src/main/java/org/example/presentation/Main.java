@@ -1,9 +1,11 @@
 package org.example.presentation;
 
 import org.example.data.NewsDataSource;
+import org.example.data.models.Article;
 import org.example.domain.NewsParser;
 import org.example.presentation.menu.Menu;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -75,12 +77,46 @@ public class Main {
 
         });
         menu.addMenuItem("Cautare si afisarea articolelor dupa antet",()->{
-
+            System.out.print("Introdu titlul pentru cautare:");
+            String titleSearch = new Scanner(System.in).nextLine();
+            List<Article> searchResult = parser.searchByTitle(titleSearch);
+            if(titleSearch.isBlank() || searchResult.size()==0){
+                System.out.println("Nu ati introdus nimic.");
+            }
+            else{
+                System.out.println("Lista articolelor ce contin titlul: " +titleSearch+ " este:\n");
+                for (Article item: searchResult) {
+                    System.out.println(item);
+                }
+            }
         });
         menu.addMenuItem("Cautare si afisarea articolelor dupa descriere",()->{
-
+            System.out.print("Introdu descrierea pentru cautare:");
+            String descriptionSearch = new Scanner(System.in).nextLine();
+            List<Article> searchResult = parser.searchByDescription(descriptionSearch);
+            if(descriptionSearch.isBlank() || searchResult.size()==0){
+                System.out.println("Nu ati introdus nimic.");
+            }
+            else{
+                System.out.println("Lista articolelor ce contin titlul: " +descriptionSearch+ " este:\n");
+                for (Article item: searchResult) {
+                    System.out.println(item);
+                }
+            }
         });
         menu.addMenuItem("Cautare si afisare a articolelor dupa autor",()->{
+            System.out.print("Introdu autorul pentru cautare:");
+            String creatorSearch = new Scanner(System.in).nextLine();
+            List<Article> searchResult = parser.searchByCreator(creatorSearch);
+            if(creatorSearch.isBlank() || searchResult.size()==0){
+                System.out.println("Nu ati introdus nimic.");
+            }
+            else{
+                System.out.println("Lista articolelor ce sunt create de : " +creatorSearch+ " este:\n");
+                for (Article item: searchResult) {
+                    System.out.println(item);
+                }
+            }
 
         });
         menu.addMenuItem("Afisarea numarului de cuvinte din articol",()->{

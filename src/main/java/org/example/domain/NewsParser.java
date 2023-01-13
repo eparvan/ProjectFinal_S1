@@ -58,7 +58,7 @@ public class NewsParser {
     public Integer getTotalWordsCount() {
         Integer result = 0;
         for(Article article : newsData.articles){
-            result = getWordsCountForArticle(article);
+            result += getWordsCountForArticle(article);
         }
         return result;
     }
@@ -79,7 +79,7 @@ public class NewsParser {
         if(text == null || text.isBlank()){
             return 0;
         }else{
-            return text.split(" ").length;
+            return text.split("\\s*(\\s|,|!|\\.)\\s*").length;
         }
     }
 
@@ -100,7 +100,7 @@ public class NewsParser {
         List<Article> listArticles = new ArrayList<>();
         for (Article item : newsData.articles) {
             if (item.description !=null){
-                if(item.title.contains(descriptionSearch)){
+                if(item.description.contains(descriptionSearch)){
                     listArticles.add(item);
                 }
             }
@@ -118,6 +118,44 @@ public class NewsParser {
             }
         }
         return listArticles;
+    }
 
+    public Integer searchWordOccurence(String word, int id) {
+        int count = 0;
+        if(id == -1){
+            for(Article article : newsData.articles){
+                count += countWord(word, article);
+            }
+        }else{
+            count = countWord(word, newsData.articles.get(id));
+        }
+        return count;
+    }
+    
+    private Integer countWord(String word, Article articles){
+        int count =0;
+        if(articles.title !=null){
+            count += countWordsOccurenses(word,articles.title);
+        }
+        if(articles.description !=null){
+            count += countWordsOccurenses(word, articles.description);
+        }
+        if(articles.fullDescription !=null){
+            count += countWordsOccurenses(word, articles.fullDescription);
+        }
+        return count;
+    }
+
+    private int countWordsOccurenses(String word, String text) {
+        int count = 0;
+        int index = 0;
+        while (index >= 0) {
+            index = text.indexOf(word, index);
+            if (index >= 0) {
+                count++;
+                index++;
+            }
+        }
+        return count;
     }
 }
